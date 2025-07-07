@@ -1,4 +1,13 @@
 import sqlite3
+import time
+import os
+
+#--function for clear screen
+def clear_screen():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 
 connection = sqlite3.connect("products.db")
@@ -18,10 +27,12 @@ cursor = connection.cursor()
 o_username = "admin"
 o_password = "admin"
 
+clear_screen()
+
 print("\nHello on Supermarket Management System!")
 print("-" * 30)
-print("Please enter your Username and Password to login:")
-print("-" * 30)
+print("\nPlease enter your Username and Password to login:")
+
 
 username = input("Enter your Username, Please: ")
 password = input("Enter your password, Please: ")
@@ -72,7 +83,7 @@ def edit_products_indb(name, price, quantity):
             WHERE name =?
             """, (price, quantity, name,))
 
-            print("Information modified successfully!!")
+            print("\nInformation modified successfully!!")
         else:
             print("Name not found in The products!")
 
@@ -91,9 +102,10 @@ def show_products_indb():
 
         if all_rows:
             print("|".join(column_names))
+            print("-"*30)
 
             for id, name, price, quantity in all_rows:
-                print(str(id) + "|" + price + "|" + str(quantity))
+                print(str(id) + " | " + name + " | " + price + " | " + str(quantity))
             else:
                 print("You don't have any products")
 
@@ -143,8 +155,8 @@ def open_invoice_indb(nams):
 
 
 if username == o_username and password == o_password:
-    print("-" * 30)
-    print("Welcome to  your Supermarket Management System!")
+    clear_screen()
+    print("\nWelcome to  your Supermarket Management System!")
     print("\nPlease choose an option to start:")
     
     print("\t1. Add product")
@@ -153,13 +165,13 @@ if username == o_username and password == o_password:
     print("\t4. Show products")
     print("\t5. Open invoice")
     print("\t6. Exit")
-    print("-" * 30)
+    
 
     #-- function for add products
     def add_product():
-        print("Enter the product details, Please:")
-        name = input("Enter name's product: ")
-        price = input("\nEnter price's product: ")
+        print("\nEnter the product details, Please:")
+        name = input("\nEnter name's product: ")
+        price = input("Enter price's product: ")
         quantity =input("enter the number of quantity: ")
         add_product_indb(name, price, quantity)
         print("\nProduct added successufully!!")
@@ -173,15 +185,14 @@ if username == o_username and password == o_password:
     #-- function for remove products
     def edit_product():
         print("\nPlease enter the name of product you want to edit: ")
-        name = input("\n name of product: ")
-        print("\nPlease enter the new details: ")
+        name = input("\nname of product: ")
         price = input("Please, enter the new price: ")
         quantity = input("Please, enter the new number's quantity: ")
         edit_products_indb(name, price, quantity)
 
     #-- function for show all products   
     def show_products():
-        print("This is all Productsss founded: ")
+        print("This is all Products founded: ")
         show_products_indb()
 
     #-- function for show all products
@@ -189,7 +200,7 @@ if username == o_username and password == o_password:
         names = []
 
         while True:
-            print("To finish 'q'")
+            print("To finish 'q' ")
             print("Please enter the name of product you want to buy: ")
             name = input("\n Enter your Name: ")
             names.append(name)
@@ -197,7 +208,7 @@ if username == o_username and password == o_password:
                 open_invoice_indb(names)
                 break
 
-    option = input("Enter your Option, Please: ")
+    option = input("\nEnter your Option, Please: ")
 
     if option == "1" or option.lower() == "add product":
         add_product()
@@ -208,7 +219,7 @@ if username == o_username and password == o_password:
     elif option == "3" or option.lower() == "edit product":
         edit_product()
 
-    elif option == "4" or option.lower() == "show product":
+    elif option == "4" or option.lower() == "show products":
         show_products()
 
     elif option == "5" or option.lower() == "open invoice":
