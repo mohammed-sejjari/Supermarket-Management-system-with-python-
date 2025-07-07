@@ -105,9 +105,10 @@ def show_products_indb():
             print("-"*30)
 
             for id, name, price, quantity in all_rows:
-                print(str(id) + " | " + name + " | " + price + " | " + str(quantity))
-            else:
-                print("You don't have any products")
+                # == print(str(id) + " | " + str(name) + " | " + str(price) + " | " + str(quantity))
+                print(f" {id} | {name} | {price} | {quantity}")
+        else:
+            print("You don't have any products")
 
     except sqlite3.Error as e:
         print("An error accurred:", e)
