@@ -131,11 +131,11 @@ def open_invoice_indb(nams):
             if product_row:
                 cursor.execute("""
                     UPDATE products
-                    SET Quantity = Quntity - 1
-                    WHRER name = ?
+                    SET Quantity = Quantity - 1
+                    WHERE name = ?
                     """, (name, ))
                 
-                cursor.execute("SELECT Price FROM products WHERE name = ?", (name, ))
+                cursor.execute("SELECT Price FROM products WHERE Name = ?", (name, ))
                 price = cursor.fetchone()
                 #-- price --> (10,)
                 prices.append(price[0])
@@ -143,7 +143,7 @@ def open_invoice_indb(nams):
             else:
                 if name != "q":
                     print("The product not found!")
-
+                    
         print("-" * 30)
         print("Your Bill:")
         print("|".join(names))
@@ -193,17 +193,17 @@ if username == o_username and password == o_password:
 
     #-- function for show all products   
     def show_products():
-        print("This is all Products founded: ")
+        print("\nThis is all Products founded: ")
         show_products_indb()
 
     #-- function for show all products
     def open_invoice():
         names = []
-
+        print("\nPlease enter the name of product you want to buy: ")
+        print("When you choose all products. Click 'q' for display your Invoice.!!\n")
+        
         while True:
-            print("To finish 'q' ")
-            print("Please enter the name of product you want to buy: ")
-            name = input("\n Enter your Name: ")
+            name = input("Enter your name's product: ")
             names.append(name)
             if name.lower() == "q":
                 open_invoice_indb(names)
